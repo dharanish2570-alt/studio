@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { saveUser } from "@/services/user";
 
 const formSchema = z.object({
   name: z.string().min(2, {
@@ -35,17 +36,26 @@ export function AuthForm() {
     defaultValues: {
       name: "",
       phone: "",
-      age: "" as any,
+      age: undefined,
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    toast({
-      title: "Login Successful",
-      description: `Welcome, ${values.name}!`,
-    });
-    router.push("/dashboard");
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    const result = await saveUser(values);
+
+    if (result.success) {
+      toast({
+        title: "Login Successful",
+        description: `Welcome, ${values.name}! Your data has been saved.`,
+      });
+      router.push("/dashboard");
+    } else {
+      toast({
+        variant: "destructive",
+        title: "Login Failed",
+        description: result.error || "An unexpected error occurred.",
+      });
+    }
   }
 
   return (

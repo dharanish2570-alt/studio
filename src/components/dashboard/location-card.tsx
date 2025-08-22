@@ -76,12 +76,12 @@ export function LocationCard() {
       <CardContent className="space-y-4">
         <div className="aspect-video w-full rounded-md overflow-hidden border">
            <Image
-              src="https://storage.googleapis.com/aif-us-build-test-project/get_started_guide/Studio_Bot_location_card_map.png"
+              src="https://placehold.co/600x400.png"
               width={600}
               height={400}
-              alt="Map of an urban area"
+              alt="Location status map"
               className="w-full h-full object-cover"
-              data-ai-hint="map city"
+              data-ai-hint="map location"
             />
         </div>
         {location && (

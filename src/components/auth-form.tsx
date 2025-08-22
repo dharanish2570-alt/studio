@@ -35,7 +35,7 @@ export function AuthForm() {
     defaultValues: {
       name: "",
       phone: "",
-      age: undefined,
+      age: "" as any,
     },
   });
 

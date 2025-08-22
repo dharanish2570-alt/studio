@@ -1,12 +1,11 @@
-"use client";
-
-import { useState, useEffect } from "react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Siren, CloudRain, Wind, AlertTriangle } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const alerts = [
   {
+    id: "alert-1",
     type: "High Alert",
     title: "Low Oxygen Levels Detected",
     description: "Oxygen levels in Zone B are critically low. Please move to an open area and await instructions. Emergency services have been notified.",
@@ -14,6 +13,7 @@ const alerts = [
     variant: "destructive",
   },
   {
+    id: "alert-2",
     type: "Weather Warning",
     title: "Severe Weather Approaching",
     description: "A heavy thunderstorm is expected in 30 minutes. Please seek shelter immediately. Avoid open fields and tall structures.",
@@ -21,6 +21,7 @@ const alerts = [
     variant: "warning",
   },
   {
+    id: "alert-3",
     type: "Accident Reported",
     title: "Accident near Main Stage",
     description: "A minor accident has been reported. Medical teams are on-site. Please keep the area clear for emergency personnel.",
@@ -28,6 +29,7 @@ const alerts = [
     variant: "warning",
   },
   {
+    id: "alert-4",
     type: "High Winds Advisory",
     title: "Strong Winds Detected",
     description: "High winds may cause temporary structures to become unstable. Please be cautious and report any safety concerns.",
@@ -37,23 +39,6 @@ const alerts = [
 ];
 
 export function AlertCard() {
-  const [currentAlertIndex, setCurrentAlertIndex] = useState(0);
-  const [isFading, setIsFading] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIsFading(true);
-      setTimeout(() => {
-        setCurrentAlertIndex((prevIndex) => (prevIndex + 1) % alerts.length);
-        setIsFading(false);
-      }, 500);
-    }, 7000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const currentAlert = alerts[currentAlertIndex];
-  const Icon = currentAlert.icon;
-
   const cardVariants = {
     destructive: "border-destructive/50 bg-destructive/10 text-destructive",
     warning: "border-yellow-500/50 bg-yellow-500/10 text-yellow-600 dark:text-yellow-400",
@@ -67,18 +52,33 @@ export function AlertCard() {
   };
   
   return (
-    <Card className={cn("transition-all duration-500", isFading ? "opacity-0" : "opacity-100", cardVariants[currentAlert.variant as keyof typeof cardVariants])}>
+    <Card>
       <CardHeader>
-        <div className="flex items-center gap-4">
-          <Icon className={cn("h-8 w-8", iconVariants[currentAlert.variant as keyof typeof iconVariants])} />
-          <div>
-            <CardDescription className={cn(iconVariants[currentAlert.variant as keyof typeof iconVariants])}>{currentAlert.type}</CardDescription>
-            <CardTitle>{currentAlert.title}</CardTitle>
-          </div>
-        </div>
+        <CardTitle>Emergency Alerts</CardTitle>
+        <CardDescription>Expand to see details of active alerts.</CardDescription>
       </CardHeader>
       <CardContent>
-        <p className="text-foreground/80">{currentAlert.description}</p>
+        <Accordion type="multiple" className="w-full">
+          {alerts.map((alert) => {
+            const Icon = alert.icon;
+            return (
+              <AccordionItem value={alert.id} key={alert.id} className={cn("rounded-lg px-4 mb-2", cardVariants[alert.variant as keyof typeof cardVariants])}>
+                <AccordionTrigger className="hover:no-underline">
+                  <div className="flex items-center gap-4">
+                    <Icon className={cn("h-6 w-6", iconVariants[alert.variant as keyof typeof iconVariants])} />
+                    <div className="text-left">
+                      <p className={cn("text-sm font-semibold", iconVariants[alert.variant as keyof typeof iconVariants])}>{alert.type}</p>
+                      <h4 className="font-bold text-foreground">{alert.title}</h4>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent>
+                  <p className="text-foreground/80 pl-10">{alert.description}</p>
+                </AccordionContent>
+              </AccordionItem>
+            )
+          })}
+        </Accordion>
       </CardContent>
     </Card>
   );

@@ -15,7 +15,7 @@ export default function Home() {
         <h1 className="ml-2 text-xl font-bold text-primary">GuardianEye</h1>
         <nav className="ml-auto flex gap-4 sm:gap-6">
           <Link href="/login">
-            <Button>Login</Button>
+            <Button>Login / Sign Up</Button>
           </Link>
         </nav>
       </header>

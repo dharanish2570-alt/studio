@@ -86,7 +86,7 @@ export function AuthForm() {
           )}
         />
         <Button type="submit" className="w-full" size="lg">
-          Secure Login
+          Continue
         </Button>
       </form>
     </Form>

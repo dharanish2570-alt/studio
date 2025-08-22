@@ -12,8 +12,8 @@ export default function LoginPage() {
             <Link href="/" className="inline-block mb-4">
               <Logo className="h-12 w-12 text-primary mx-auto" />
             </Link>
-            <CardTitle className="text-2xl font-headline">Welcome to GuardianEye</CardTitle>
-            <CardDescription>Enter your details to get started.</CardDescription>
+            <CardTitle className="text-2xl font-headline">Create or Login</CardTitle>
+            <CardDescription>Enter your details to proceed.</CardDescription>
           </CardHeader>
           <CardContent>
             <AuthForm />

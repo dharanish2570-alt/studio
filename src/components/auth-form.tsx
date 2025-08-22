@@ -24,7 +24,6 @@ const formSchema = z.object({
   phone: z.string().regex(/^\+?[1-9]\d{1,14}$/, {
     message: "Please enter a valid phone number.",
   }),
-  age: z.coerce.number().int().positive({ message: "Please enter a valid age." }).min(18, {message: "You must be at least 18 years old."}),
 });
 
 export function AuthForm() {
@@ -36,7 +35,6 @@ export function AuthForm() {
     defaultValues: {
       name: "",
       phone: "",
-      age: undefined,
     },
   });
 
@@ -82,19 +80,6 @@ export function AuthForm() {
               <FormLabel>Phone Number</FormLabel>
               <FormControl>
                 <Input placeholder="+1 123 456 7890" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="age"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Age</FormLabel>
-              <FormControl>
-                <Input type="number" placeholder="25" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

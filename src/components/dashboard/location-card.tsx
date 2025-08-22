@@ -76,7 +76,7 @@ export function LocationCard() {
       <CardContent className="space-y-4">
         <div className="aspect-video w-full rounded-md overflow-hidden border">
            <Image
-              src="https://placehold.co/600x400.png"
+              src="https://i.ibb.co/d2g1f3G/image.png"
               width={600}
               height={400}
               alt="Location status map"
